@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -60,6 +61,20 @@ public class DailyReportController {
 		return drs;
 	}
 
+	@RequestMapping(value = { "/list/{name}" }, method = RequestMethod.GET)
+	@ResponseBody
+	public List<DailyReport> listByName(@PathVariable("name") String name) {
+		List<DailyReport> drs = dailyReportService.list("name",name);
+		return drs;
+	}
+	
+	@RequestMapping(value = { "/list/{dateStr}" }, method = RequestMethod.POST)
+	@ResponseBody
+	public List<DailyReport> listByDate(@PathVariable("dateStr") String dateStr) {
+		List<DailyReport> drs = dailyReportService.listByDate(dateStr);
+		return drs;
+	}
+	
 	@RequestMapping(value = { "/add" }, method = RequestMethod.POST)
 	@ResponseBody
 	public boolean add(@ModelAttribute DailyReport dailyReport) {

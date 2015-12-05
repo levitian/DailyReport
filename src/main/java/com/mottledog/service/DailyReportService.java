@@ -42,4 +42,8 @@ public class DailyReportService {
 	public List<DailyReport> listByToday(){
 		return dailyReportDao.listByToday();
 	}
+	
+	public List<DailyReport> listByDate(String dateStr){
+		return dailyReportDao.listByDate(dateStr);
+	}
 }
