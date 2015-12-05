@@ -21,14 +21,14 @@ import org.springframework.beans.factory.annotation.Qualifier;
 
 public class BaseDao<T, PK extends java.io.Serializable>{
 
-	// ÈÕÖ¾Êä³öÀà
+	// æ—¥å¿—è¾“å‡ºç±»
 	protected static final Logger LOGGER = LoggerFactory
 			.getLogger(BaseDao.class);
 
-	// ·ºĞÍ·´ÉäÀà
+	// æ³›å‹åå°„ç±»
 	private Class<T> entityClass;
 
-	// Í¨¹ı·´Éä»ñÈ¡×ÓÀàÈ·¶¨µÄ·ºĞÍÀà
+	// é€šè¿‡åå°„è·å–å­ç±»ç¡®å®šçš„æ³›å‹ç±»
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public BaseDao() {
 		Type genType = getClass().getGenericSuperclass();
@@ -38,20 +38,20 @@ public class BaseDao<T, PK extends java.io.Serializable>{
 
 	/*
 	 * 
-	 * ×¢ÈësessionFactory
+	 * æ³¨å…¥sessionFactory
 	 */
 	@Autowired
 	@Qualifier("sessionFactory")
 	private SessionFactory sessionFactory;
 
 	public Session getSession() {
-		// ÊÂÎñ±ØĞëÊÇ¿ªÆôµÄ(Required)£¬·ñÔò»ñÈ¡²»µ½
+		// äº‹åŠ¡å¿…é¡»æ˜¯å¼€å¯çš„(Required)ï¼Œå¦åˆ™è·å–ä¸åˆ°
 		return sessionFactory.getCurrentSession();
 	}
 
 	/*
 	 * 
-	 * ±£´æPO
+	 * ä¿å­˜PO
 	 */
 	@SuppressWarnings("unchecked")
 	public PK save(T entity) {
@@ -60,7 +60,7 @@ public class BaseDao<T, PK extends java.io.Serializable>{
 
 	/*
 	 * 
-	 * ±£´æ»ò¸üĞÂPO
+	 * ä¿å­˜æˆ–æ›´æ–°PO
 	 */
 	public void saveOrUpdate(T entity) {
 		getSession().saveOrUpdate(entity);
@@ -68,7 +68,7 @@ public class BaseDao<T, PK extends java.io.Serializable>{
 
 	/*
 	 * 
-	 * ¸üĞÂPO
+	 * æ›´æ–°PO
 	 */
 	public void update(T entity) {
 		getSession().update(entity);
@@ -76,7 +76,7 @@ public class BaseDao<T, PK extends java.io.Serializable>{
 
 	/*
 	 * 
-	 * ºÏ²¢PO
+	 * åˆå¹¶PO
 	 */
 	public void merge(T entity) {
 		getSession().merge(entity);
@@ -84,7 +84,7 @@ public class BaseDao<T, PK extends java.io.Serializable>{
 
 	/*
 	 * 
-	 * ¸ù¾İidÉ¾³ıPO
+	 * æ ¹æ®idåˆ é™¤PO
 	 */
 	public void delete(PK id) {
 		getSession().delete(this.get(id));
@@ -92,7 +92,7 @@ public class BaseDao<T, PK extends java.io.Serializable>{
 
 	/*
 	 * 
-	 * É¾³ıPO
+	 * åˆ é™¤PO
 	 */
 	public void deleteObject(T entity) {
 		getSession().delete(entity);
@@ -100,7 +100,7 @@ public class BaseDao<T, PK extends java.io.Serializable>{
 
 	/*
 	 * 
-	 * ¸ù¾İidÅĞ¶ÏPOÊÇ·ñ´æÔÚ
+	 * æ ¹æ®idåˆ¤æ–­POæ˜¯å¦å­˜åœ¨
 	 */
 	public boolean exists(PK id) {
 		return get(id) != null;
@@ -108,7 +108,7 @@ public class BaseDao<T, PK extends java.io.Serializable>{
 
 	/*
 	 * 
-	 * ¸ù¾İid¼ÓÔØPO
+	 * æ ¹æ®idåŠ è½½PO
 	 */
 	@SuppressWarnings("unchecked")
 	public T load(PK id) {
@@ -117,7 +117,7 @@ public class BaseDao<T, PK extends java.io.Serializable>{
 
 	/*
 	 * 
-	 * ¸ù¾İid»ñÈ¡PO
+	 * æ ¹æ®idè·å–PO
 	 */
 	@SuppressWarnings("unchecked")
 	public T get(PK id) {
@@ -126,7 +126,7 @@ public class BaseDao<T, PK extends java.io.Serializable>{
 
 	/*
 	 * 
-	 * »ñÈ¡PO×ÜÊı(Ä¬ÈÏÎªentityClass)
+	 * è·å–POæ€»æ•°(é»˜è®¤ä¸ºentityClass)
 	 */
 	public int countAll() {
 		Criteria criteria = createCriteria();
@@ -136,7 +136,7 @@ public class BaseDao<T, PK extends java.io.Serializable>{
 
 	/*
 	 * 
-	 * ¸ù¾İCriteria²éÑ¯Ìõ¼ş£¬»ñÈ¡PO×ÜÊı
+	 * æ ¹æ®CriteriaæŸ¥è¯¢æ¡ä»¶ï¼Œè·å–POæ€»æ•°
 	 */
 
 	public int countAll(Criteria criteria) {
@@ -146,7 +146,7 @@ public class BaseDao<T, PK extends java.io.Serializable>{
 
 	/*
 	 * 
-	 * É¾³ıËùÓĞ
+	 * åˆ é™¤æ‰€æœ‰
 	 */
 
 	public void deleteAll(Collection<?> entities) {
@@ -159,7 +159,7 @@ public class BaseDao<T, PK extends java.io.Serializable>{
 
 	/*
 	 * 
-	 * »ñÈ¡È«²¿¶ÔÏó
+	 * è·å–å…¨éƒ¨å¯¹è±¡
 	 */
 
 	@SuppressWarnings("unchecked")
@@ -169,7 +169,7 @@ public class BaseDao<T, PK extends java.io.Serializable>{
 
 	/*
 	 * 
-	 * »ñÈ¡¶ÔÏóÁĞ±í¸ù¾İCriteria
+	 * è·å–å¯¹è±¡åˆ—è¡¨æ ¹æ®Criteria
 	 */
 	@SuppressWarnings("unchecked")
 	public List<T> list(Criteria criteria) {
@@ -178,7 +178,7 @@ public class BaseDao<T, PK extends java.io.Serializable>{
 
 	/*
 	 * 
-	 * ÀëÏß²éÑ¯
+	 * ç¦»çº¿æŸ¥è¯¢
 	 */
 
 	@SuppressWarnings({ "unchecked", "hiding" })
@@ -188,7 +188,7 @@ public class BaseDao<T, PK extends java.io.Serializable>{
 
 	/*
 	 * 
-	 * »ñÈ¡È«²¿¶ÔÏó£¬Ö§³ÖÅÅĞò
+	 * è·å–å…¨éƒ¨å¯¹è±¡ï¼Œæ”¯æŒæ’åº
 	 * @param orderBy
 	 * @param isAsc
 	 * @return
@@ -207,7 +207,7 @@ public class BaseDao<T, PK extends java.io.Serializable>{
 
 	/*
 	 * 
-	 * °´ÊôĞÔ²éÕÒ¶ÔÏóÁĞ±í£¬Æ¥Åä·½Ê½ÎªÏàµÈ
+	 * æŒ‰å±æ€§æŸ¥æ‰¾å¯¹è±¡åˆ—è¡¨ï¼ŒåŒ¹é…æ–¹å¼ä¸ºç›¸ç­‰
 	 * @param propertyName
 	 * @param value
 	 * @return
@@ -226,7 +226,7 @@ public class BaseDao<T, PK extends java.io.Serializable>{
 	
 	/*
 	 * 
-	 * ¸ù¾İ²éÑ¯Ìõ¼ş»ñÈ¡Êı¾İÁĞ±í
+	 * æ ¹æ®æŸ¥è¯¢æ¡ä»¶è·å–æ•°æ®åˆ—è¡¨
 	 */
 	@SuppressWarnings("unchecked")
 	private List<T> list(Criterion criterion) {
@@ -236,8 +236,8 @@ public class BaseDao<T, PK extends java.io.Serializable>{
 	}
 
 	/*
-	 * °´Criteria²éÑ¯¶ÔÏóÁĞ±í
-	 * @param criterionsÊıÁ¿¿É±äµÄCriterion
+	 * æŒ‰CriteriaæŸ¥è¯¢å¯¹è±¡åˆ—è¡¨
+	 * @param criterionsæ•°é‡å¯å˜çš„Criterion
 	 * @param criterions
 	 * @return
 	 */
@@ -247,7 +247,7 @@ public class BaseDao<T, PK extends java.io.Serializable>{
 	}
 
 	/*
-	 * °´ÊôĞÔ²éÕÒÎ¨Ò»¶ÔÏó£¬Æ¥Åä·½Ê½ÎªÏàµÈ
+	 * æŒ‰å±æ€§æŸ¥æ‰¾å”¯ä¸€å¯¹è±¡ï¼ŒåŒ¹é…æ–¹å¼ä¸ºç›¸ç­‰
 	 * @param propertyName
 	 * @param value
 	 * @return
@@ -259,8 +259,8 @@ public class BaseDao<T, PK extends java.io.Serializable>{
 	}
 
 	/*
-	 * °´Criteria²éÑ¯Î¨Ò»¶ÔÏó
-	 * @param criterionsÊıÁ¿¿É±äµÄCriterion
+	 * æŒ‰CriteriaæŸ¥è¯¢å”¯ä¸€å¯¹è±¡
+	 * @param criterionsæ•°é‡å¯å˜çš„Criterion
 	 * @param criterions
 	 * @return
 	 */
@@ -270,7 +270,7 @@ public class BaseDao<T, PK extends java.io.Serializable>{
 	}
 
 	/*
-	 * °´Criteria²éÑ¯Î¨Ò»¶ÔÏó
+	 * æŒ‰CriteriaæŸ¥è¯¢å”¯ä¸€å¯¹è±¡
 	 * @param criterions
 	 * @return
 	 */
@@ -280,20 +280,20 @@ public class BaseDao<T, PK extends java.io.Serializable>{
 	}
 
 	/*
-	 * ÎªCriteriaÌí¼Ódistinct transformer
+	 * ä¸ºCriteriaæ·»åŠ distinct transformer
 	 * @param criteria
 	 * @return
 	 */
-	// ÈÏÎªÃ»ÓÃ
+	// è®¤ä¸ºæ²¡ç”¨
 	public Criteria distinct(Criteria criteria) {
-		// ½«½á¹û¼¯½øĞĞÒ»´Î·â×°£¬·â×°³ÉDISTINCT_ROOT_ENTITY¶ÔÏó£¬·½±ãservice²ã´úÂëÊ¹ÓÃ
+		// å°†ç»“æœé›†è¿›è¡Œä¸€æ¬¡å°è£…ï¼Œå°è£…æˆDISTINCT_ROOT_ENTITYå¯¹è±¡ï¼Œæ–¹ä¾¿serviceå±‚ä»£ç ä½¿ç”¨
 		criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
 		return criteria;
 	}
 
 	/*
 	 * 
-	 * Ç¿ÖÆÇå¿Õsession
+	 * å¼ºåˆ¶æ¸…ç©ºsession
 	 */
 	public void flush() {
 		getSession().flush();
@@ -301,7 +301,7 @@ public class BaseDao<T, PK extends java.io.Serializable>{
 
 	/*
 	 * 
-	 * Çå¿Õsession
+	 * æ¸…ç©ºsession
 	 */
 	public void clear() {
 		getSession().clear();
@@ -309,15 +309,15 @@ public class BaseDao<T, PK extends java.io.Serializable>{
 
 	/*
 	 * 
-	 * ´´½¨CriteriaÊµÀı
+	 * åˆ›å»ºCriteriaå®ä¾‹
 	 */
 	public Criteria createCriteria() {
 		return getSession().createCriteria(entityClass);
 	}
 
 	/*
-	 * ¸ù¾İCriterionÌõ¼ş´´½¨Criteria
-	 * @param criterionsÊıÁ¿¿É±äµÄCriterion
+	 * æ ¹æ®Criterionæ¡ä»¶åˆ›å»ºCriteria
+	 * @param criterionsæ•°é‡å¯å˜çš„Criterion
 	 */
 
 	public Criteria createCriteria(Criterion... criterions) {
@@ -329,16 +329,16 @@ public class BaseDao<T, PK extends java.io.Serializable>{
 	}
 
 	/*
-	 * ·ÖÒ³²éÑ¯Criteria
+	 * åˆ†é¡µæŸ¥è¯¢Criteria
 	 * @param
 	 * @return
 	 */
 
 	public List<T> listByPage(int pageNo, int pageSize) {
 		Criteria criteria = createCriteria();
-		// ÉèÖÃÆğÊ¼½á¹ûÊı
+		// è®¾ç½®èµ·å§‹ç»“æœæ•°
 		criteria.setFirstResult((pageNo - 1) * pageSize);
-		// ·µ»ØµÄ×î´ó½á¹û¼¯
+		// è¿”å›çš„æœ€å¤§ç»“æœé›†
 		criteria.setMaxResults(pageSize);
 		return list(criteria);
 	}

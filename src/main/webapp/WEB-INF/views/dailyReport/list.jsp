@@ -16,33 +16,46 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap-datetimepicker.min.css">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/jquery-ui.css">
-	<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
-	<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/js/jquery-ui.js"></script>
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap-slider.css">
+	<style type="text/css">
+		.form-horizontal .form-group {
+		    margin-right: -14px;
+		    margin-left: -15px;
+		}
+	</style>
   </head>
   
   <body style="margin:10px">
 	<input id="writeDailyReport" class="btn btn-primary" type="button" value="填写日报" />
-	<a href="<%=request.getContextPath()%>/dr/exportTodayDailyReport" class="btn btn-primary" >导出日报</a>
+	<a href="<%=request.getContextPath()%>/dr/exportTodayDailyReport" class="btn btn-primary" >导出今天日报</a>
   	<div id="dialog-confirm" title="填报工作日报" style="display:none">
  		<p>
  			<form id="add_form" class="form-horizontal" role="form">
-       			<div class="form-group">
+<!--        			<div class="form-group">
                    <label class="col-sm-3 control-label" for="ds_host">工作日</label>
                    <div class="col-sm-6">
                       <input class="form-control" id="work_date" name="work_date" type="text" placeholder="2015-12-02"/>
                    </div>
-                </div>
-       			<div class="form-group">
+                </div> -->
+        		<div class="form-group">
                    <label class="col-sm-3 control-label" for="ds_host">姓名</label>
                    <div class="col-sm-6">
                       <input class="form-control" id="name" name="name" type="text" placeholder="左锐锋"/>
                    </div>
-                </div>
+                </div>               
+				<div class="form-group">
+	                <label for="dtp_input2" class="col-md-3 control-label">工作日</label>
+	                <div class="input-group date form_date col-md-6" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+	                    <input class="form-control" size="16" id="work_date" name="work_date" type="text" placeholder="2001-01-02" value="" readonly>
+	                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+						<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+	                </div>
+					<input type="hidden" id="dtp_input2" value="" /><br/>
+	            </div>                
+
        			<div class="form-group">
                    <label class="col-sm-3 control-label" for="ds_host">工作内容（任务）</label>
                    <div class="col-sm-6">
@@ -59,18 +72,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                    <label class="col-sm-3 control-label" for="ds_host">工作进展(%)</label>
                    <div class="col-sm-6">
                       <input class="form-control" id="job_progress" name="job_progress" type="text" placeholder="39"/>
+                      <!-- <input id="ex1" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="14"/> -->
                    </div>
-                </div>
+				</div>
        			<div class="form-group">
                    <label class="col-sm-3 control-label" for="ds_host">是否测试</label>
                    <div class="col-sm-6">
-                      <input class="form-control" id="is_test" name="is_test" type="text" placeholder="true"/>
+						<select class="form-control" id="is_test">
+						  	<option value="true">是</option>
+						  	<option value="false">否</option>
+						</select>                      
                    </div>
-                </div>
+                </div>                
        			<div class="form-group">
                    <label class="col-sm-3 control-label" for="ds_host">是否提交SVN</label>
                    <div class="col-sm-6">
-                      <input class="form-control" id="is_submit" name="is_submit" type="text" placeholder="false"/>
+                     <!--  <input class="form-control" id="is_submit" name="is_submit" type="text" placeholder="false"/> -->
+					  <select class="form-control" id="is_submit">
+					  	<option value="true">是</option>
+					  	<option value="false">否</option>
+					  </select>                         
                    </div>
                 </div>
        			<div class="form-group">
@@ -85,15 +106,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                       <input class="form-control" id="remark" name="remark" type="text" placeholder="接替田力工作"/>
                    </div>
                 </div>                      				
- 				<!-- 工作日:<input id="work_date" name="work_date" type="text" /><br /><br />
- 				姓名:<input id="name" name="name" type="text" /><br /><br />
- 				工作内容（任务）:<input id="work_content" name="work_content" type="text" /><br /><br />
- 				牵头人:<input id="initiator" name="initiator" type="text" /><br /><br />
- 				工作进展:<input id="job_progress" name="job_progress" type="text" /><br /><br />
- 				是否测试:<input id="is_test" name="is_test" type="text" /><br /><br />
- 				是否提交SVN:<input id="is_submit" name="is_submit" type="text" /><br /><br />
- 				遇到的困难/问题:<input id="doubt" name="doubt" type="text" /><br /><br />
- 				备注:<input id="remark" name="remark" type="text" /> -->
  			</form>
  		</p>
 	</div>
@@ -115,6 +127,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	     </thead>
 	     <tbody></tbody>
 	 </table>
+	 
+	 
+	<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/js/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/js/jquery-ui-1.10.3.min.js"></script>
+	<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+	<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js"></script>
+	<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.zh-CN.js"></script>
+	<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/js/bootstrap-slider.min.js"></script>
+	<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/js/ehualu.date.format.js"></script>
 	<script type="text/javascript">
 		$(function() {
 			$("#writeDailyReport").on("click",function(){
@@ -133,7 +154,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				       	 	$( this ).dialog( "close" );
 				       }
 				 	}
-				 });				
+				 });
 			});
 			
 
@@ -158,6 +179,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				        success: function(data) {
 							if(data){
 								alert("添加成功");
+								location.reload();
 							}
 				        }
 				    });
@@ -177,7 +199,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							var da = data[i];
 							ctx += "<tr>"
 									+ "<td style='display:none'>" + da.id + "</td>"
-									+ "<td>" + da.work_date + "</td>"
+									+ "<td>" + getSmpFormatDateByLong(da.work_date,false) + "</td>"
 									+ "<td>" + da.name + "</td>"
 									+ "<td>" + da.work_content + "</td>"
 									+ "<td>" + da.initiator + "</td>"
@@ -191,9 +213,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						$("#example tbody").html(ctx)
 			        }
 			    });
-		});
-		 
+				$('.form_date').datetimepicker({
+			        language:  'zh-CN',
+			        weekStart: 1,
+			        todayBtn:  1,
+					autoclose: 1,
+					todayHighlight: 1,
+					startView: 2,
+					minView: 2,
+					forceParse: 0
+			    });
+				
+		    	$('#ex1').slider({
+		          	formatter: function(value) {
+		            	return 'Current value: ' + value;
+		          	}
+		        });	
 
+		});
 	 </script>
   </body>
 </html>

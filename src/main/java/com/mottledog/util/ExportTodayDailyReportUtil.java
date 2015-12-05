@@ -14,49 +14,49 @@ import com.mottledog.bo.DailyReport;
 public class ExportTodayDailyReportUtil {
 
 	public static HSSFWorkbook export(List<DailyReport> drs){
-		// µÚÒ»²½£¬´´½¨Ò»¸öwebbook£¬¶ÔÓ¦Ò»¸öExcelÎÄ¼ş
+		// ç¬¬ä¸€æ­¥ï¼Œåˆ›å»ºä¸€ä¸ªwebbookï¼Œå¯¹åº”ä¸€ä¸ªExcelæ–‡ä»¶
 		HSSFWorkbook wb = new HSSFWorkbook();
-		// µÚ¶ş²½£¬ÔÚwebbookÖĞÌí¼ÓÒ»¸ösheet,¶ÔÓ¦ExcelÎÄ¼şÖĞµÄsheet
-		HSSFSheet sheet = wb.createSheet("Ñ§Éú±íÒ»");
-		// µÚÈı²½£¬ÔÚsheetÖĞÌí¼Ó±íÍ·µÚ0ĞĞ,×¢ÒâÀÏ°æ±¾poi¶ÔExcelµÄĞĞÊıÁĞÊıÓĞÏŞÖÆshort
+		// ç¬¬äºŒæ­¥ï¼Œåœ¨webbookä¸­æ·»åŠ ä¸€ä¸ªsheet,å¯¹åº”Excelæ–‡ä»¶ä¸­çš„sheet
+		HSSFSheet sheet = wb.createSheet("å­¦ç”Ÿè¡¨ä¸€");
+		// ç¬¬ä¸‰æ­¥ï¼Œåœ¨sheetä¸­æ·»åŠ è¡¨å¤´ç¬¬0è¡Œ,æ³¨æ„è€ç‰ˆæœ¬poiå¯¹Excelçš„è¡Œæ•°åˆ—æ•°æœ‰é™åˆ¶short
 		HSSFRow row = sheet.createRow((int) 0);
-		// µÚËÄ²½£¬´´½¨µ¥Ôª¸ñ£¬²¢ÉèÖÃÖµ±íÍ· ÉèÖÃ±íÍ·¾ÓÖĞ
+		// ç¬¬å››æ­¥ï¼Œåˆ›å»ºå•å…ƒæ ¼ï¼Œå¹¶è®¾ç½®å€¼è¡¨å¤´ è®¾ç½®è¡¨å¤´å±…ä¸­
 		HSSFCellStyle style = wb.createCellStyle();
-		style.setAlignment(HSSFCellStyle.ALIGN_CENTER); // ´´½¨Ò»¸ö¾ÓÖĞ¸ñÊ½
+		style.setAlignment(HSSFCellStyle.ALIGN_CENTER); // åˆ›å»ºä¸€ä¸ªå±…ä¸­æ ¼å¼
 
 		HSSFCell cell = row.createCell(0);
-		cell.setCellValue("¹¤×÷ÈÕ");
+		cell.setCellValue("å·¥ä½œæ—¥");
 		cell.setCellStyle(style);
 		cell = row.createCell(1);
-		cell.setCellValue("ĞÕÃû");
+		cell.setCellValue("å§“å");
 		cell.setCellStyle(style);
 		cell = row.createCell(2);
-		cell.setCellValue("¹¤×÷ÄÚÈİ£¨ÈÎÎñ£©");
+		cell.setCellValue("å·¥ä½œå†…å®¹ï¼ˆä»»åŠ¡ï¼‰");
 		cell.setCellStyle(style);
 		cell = row.createCell(3);
-		cell.setCellValue("Ç£Í·ÈË");
+		cell.setCellValue("ç‰µå¤´äºº");
 		cell.setCellStyle(style);
 		cell = row.createCell(4);
-		cell.setCellValue("¹¤×÷½øÕ¹£¨%£©");
+		cell.setCellValue("å·¥ä½œè¿›å±•ï¼ˆ%ï¼‰");
 		cell.setCellStyle(style);
 		cell = row.createCell(5);
-		cell.setCellValue("ÊÇ·ñ²âÊÔ");
+		cell.setCellValue("æ˜¯å¦æµ‹è¯•");
 		cell.setCellStyle(style);
 		cell = row.createCell(6);
-		cell.setCellValue("ÊÇ·ñÌá½»SVN");
+		cell.setCellValue("æ˜¯å¦æäº¤SVN");
 		cell.setCellStyle(style);
 		cell = row.createCell(7);
-		cell.setCellValue("Óöµ½µÄÀ§ÄÑ/ÎÊÌâ");
+		cell.setCellValue("é‡åˆ°çš„å›°éš¾/é—®é¢˜");
 		cell.setCellStyle(style);
 		cell = row.createCell(8);
-		cell.setCellValue("±¸×¢");
+		cell.setCellValue("å¤‡æ³¨");
 		cell.setCellStyle(style);
-		// µÚÎå²½£¬Ğ´ÈëÊµÌåÊı¾İ Êµ¼ÊÓ¦ÓÃÖĞÕâĞ©Êı¾İ´ÓÊı¾İ¿âµÃµ½£¬
+		// ç¬¬äº”æ­¥ï¼Œå†™å…¥å®ä½“æ•°æ® å®é™…åº”ç”¨ä¸­è¿™äº›æ•°æ®ä»æ•°æ®åº“å¾—åˆ°ï¼Œ
 
 		for (int i = 0; i < drs.size(); i++) {
 			row = sheet.createRow((int) i + 1);
 			DailyReport dr = drs.get(i);
-			// µÚËÄ²½£¬´´½¨µ¥Ôª¸ñ£¬²¢ÉèÖÃÖµ
+			// ç¬¬å››æ­¥ï¼Œåˆ›å»ºå•å…ƒæ ¼ï¼Œå¹¶è®¾ç½®å€¼
 			row.createCell(0).setCellValue(new SimpleDateFormat("yyyy-MM-dd").format(dr.getWork_date()));
 			row.createCell(1).setCellValue(dr.getName());
 			row.createCell(2).setCellValue(dr.getWork_content());
@@ -68,7 +68,7 @@ public class ExportTodayDailyReportUtil {
 			row.createCell(8).setCellValue(dr.getRemark());
 			cell = row.createCell(9);
 		}
-		// µÚÁù²½£¬·µ»Øwb
+		// ç¬¬å…­æ­¥ï¼Œè¿”å›wb
 		return wb;
 	}
 }

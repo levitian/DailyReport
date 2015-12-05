@@ -43,7 +43,7 @@ public class DailyReportController {
 	@InitBinder
 	protected void initBinder(HttpServletRequest request,
 			ServletRequestDataBinder binder) throws Exception {
-		// 对于需要转换为Date类型的属性，使用DateEditor进行处理
+		// 瀵逛簬闇�瑕佽浆鎹负Date绫诲瀷鐨勫睘鎬э紝浣跨敤DateEditor杩涜澶勭悊
 		binder.registerCustomEditor(Date.class, new DateEditor());
 	}
 

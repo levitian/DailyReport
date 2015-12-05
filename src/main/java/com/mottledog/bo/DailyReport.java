@@ -16,6 +16,7 @@ public class DailyReport implements Serializable {
 	
 	private static final long serialVersionUID = 6589294010139831423L;
 
+	
 	/**
 	 * ID
 	 */
@@ -28,49 +29,49 @@ public class DailyReport implements Serializable {
 	private Date work_date;
 	
 	/**
-	 * ĞÕÃû
+	 * å§“å
 	 */
 	@Column(name = "NAME")
 	private String name;
 	
 	/**
-	 * ¹¤×÷ÄÚÈİ£¨ÈÎÎñ£©
+	 * å·¥ä½œå†…å®¹ï¼ˆä»»åŠ¡ï¼‰
 	 */
 	@Column(name = "WORK_CONTENT")
 	private String work_content;
 	
 	/**
-	 * Ç£Í·ÈË
+	 * ç‰µå¤´äºº
 	 */
 	@Column(name = "INITIATOR")
 	private String initiator;
 	
 	/**
-	 * ¹¤×÷½øÕ¹ 
+	 * å·¥ä½œè¿›å±• 
 	 */
 	@Column(name = "JOB_PROGRESS")
 	private int  job_progress;
 	
 	/**
-	 * ÊÇ·ñ²âÊÔ
+	 * æ˜¯å¦æµ‹è¯•
 	 */
 	@Column(name = "IS_TEST")
 	private boolean is_test;
 	
 	/**
-	 * ÊÇ·ñÌá½»svn
+	 * æ˜¯å¦æäº¤svn
 	 */
 	@Column(name = "IS_SUBMIT")
 	private boolean is_submit;
 	
 	/**
-	 * Óöµ½µÄÀ§ÄÑ/ÎÊÌâ
+	 * é‡åˆ°çš„å›°éš¾/é—®é¢˜
 	 */
 	@Column(name = "DOUBT")
 	private String doubt;
 	
 	/**
-	 * ±¸×¢
+	 * å¤‡æ³¨
 	 */
 	@Column(name = "REMARK")
 	private String remark;

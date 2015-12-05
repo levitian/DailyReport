@@ -66,7 +66,7 @@ public class EventController {
 	public EventModel add(HttpServletRequest request, @ModelAttribute EventModel em) {
 		Event event = new Event();
 		event.setUid(em.getUid());
-		//∏Ò Ω£∫"2015-07-02 8:0:0"
+		//Ê†ºÂºèÔºö"2015-07-02 8:0:0"
 		event.setStart(DataUtil.StrToDate(em.getStart()));
 		event.setEnd(DataUtil.StrToDate(em.getEnd()));
 		int eventId = eventService.add(event);
@@ -93,7 +93,7 @@ public class EventController {
 			Event event = new Event();
 			event.setId(em.getId());
 			event.setUid(em.getUid());
-			//∏Ò Ω£∫"2015-07-02 8:0:0"
+			//Ê†ºÂºèÔºö"2015-07-02 8:0:0"
 			event.setStart(DataUtil.StrToDate(em.getStart()));
 			event.setEnd(DataUtil.StrToDate(em.getEnd()));
 			eventService.update(event);
