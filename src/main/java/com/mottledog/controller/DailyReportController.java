@@ -2,6 +2,7 @@ package com.mottledog.controller;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -87,6 +88,8 @@ public class DailyReportController {
 	@ResponseBody
 	public void exportTodayDailyReport(HttpServletResponse response) {
 		List<DailyReport> drs = dailyReportService.listByToday();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		String dataStr = sdf.format(new Date());
 		HSSFWorkbook wb = ExportTodayDailyReportUtil.export(drs);
 		ByteArrayOutputStream os = new ByteArrayOutputStream();
 		try {
@@ -95,13 +98,20 @@ public class DailyReportController {
 
 			response.reset();
 			response.setContentType("application/msexcel;charset=utf-8");
-			response.setHeader("Content-disposition", "attachment;filename=dailyReport.xls");
+			response.setHeader("Content-disposition", "attachment;filename=DailyReport" + dataStr + 
+					".xls");
 			response.getOutputStream().write(bytes);
 			response.getOutputStream().flush();
 			response.getOutputStream().close();
 		} catch (IOException e) {
 			logger.error("export error:",e);
 		}
+	}
+	
+	public static void main(String[] args){
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		String datastr = sdf.format(new Date());
+		System.out.println(datastr);
 	}
 
 }
