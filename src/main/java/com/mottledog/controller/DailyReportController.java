@@ -2,6 +2,7 @@ package com.mottledog.controller;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.mottledog.bo.DailyReport;
 import com.mottledog.service.DailyReportService;
 import com.mottledog.util.DateEditor;
+import com.mottledog.util.DateUtil;
 import com.mottledog.util.ExportTodayDailyReportUtil;
 
 
@@ -50,30 +53,56 @@ public class DailyReportController {
 	}
 
 	@RequestMapping(value = { "/", "" }, method = RequestMethod.GET)
-	public String dailyReportPage(Model model) {
+	public String dailyReportPage(HttpServletRequest request) {
 		logger.info("into Daily Report requested");
+		String dateTime = DateUtil.DateToStr(new Date());
+		request.setAttribute("dateTime", dateTime);
+		
+		try {
+			request.setAttribute("nextDate", DateUtil.getNextDate(dateTime));
+			request.setAttribute("formerDate", DateUtil.getFormerDate(dateTime));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "/dailyReport/list";
 	}
 
 	@RequestMapping(value = { "/list" }, method = RequestMethod.GET)
 	@ResponseBody
 	public List<DailyReport> list(Model model) {
-		List<DailyReport> drs = dailyReportService.list();
+		List<DailyReport> drs = dailyReportService.listByToday();
 		return drs;
 	}
 
-	@RequestMapping(value = { "/list/{name}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/list/{dateTime}" }, method = RequestMethod.GET)
+	public String list(@PathVariable("dateTime") String dateTime, HttpServletRequest request) {
+		try {
+			request.setAttribute("dateTime", dateTime);
+			request.setAttribute("nextDate", DateUtil.getNextDate(dateTime));
+			request.setAttribute("formerDate", DateUtil.getFormerDate(dateTime));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "/dailyReport/list";
+	}
+	
+	@RequestMapping(value = { "/list/{dateTime}" }, method = RequestMethod.POST)
 	@ResponseBody
-	public List<DailyReport> listByName(@PathVariable("name") String name) {
-		List<DailyReport> drs = dailyReportService.list("name",name);
+	public List<DailyReport> listByDate(@PathVariable("dateTime") String dateTime) {
+		List<DailyReport> drs = dailyReportService.listByDate(dateTime);
 		return drs;
 	}
 	
-	@RequestMapping(value = { "/list/{dateStr}" }, method = RequestMethod.POST)
-	@ResponseBody
-	public List<DailyReport> listByDate(@PathVariable("dateStr") String dateStr) {
-		List<DailyReport> drs = dailyReportService.listByDate(dateStr);
-		return drs;
+	@RequestMapping(value = { "/search" }, method = RequestMethod.POST)
+	public String listByName(HttpServletRequest request) {
+		String name = ServletRequestUtils.getStringParameter(request, "query_name", "");
+		String start_work_date = ServletRequestUtils.getStringParameter(request, "start_work_date", "");
+		String end_work_date = ServletRequestUtils.getStringParameter(request, "end_work_date", "");
+		List<DailyReport> drs = dailyReportService.list(name,start_work_date,end_work_date);
+		request.setAttribute("drs", drs);
+		return "/dailyReport/search";
 	}
 	
 	@RequestMapping(value = { "/add" }, method = RequestMethod.POST)
@@ -109,7 +138,7 @@ public class DailyReportController {
 	}
 	
 	public static void main(String[] args){
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String datastr = sdf.format(new Date());
 		System.out.println(datastr);
 	}

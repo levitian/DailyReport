@@ -46,4 +46,8 @@ public class DailyReportService {
 	public List<DailyReport> listByDate(String dateStr){
 		return dailyReportDao.listByDate(dateStr);
 	}
+	
+	public List<DailyReport> list(String name, String start_date, String end_date){
+		return dailyReportDao.list(name, start_date, end_date);
+	}
 }

@@ -20,12 +20,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/jquery.dataTables.css">
-	<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
+	<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/js/jquery-2.1.1.min.js"></script>
 	<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/js/jquery.dataTables.min.js"></script>
   </head>
   
   <body>
-	<table id="example" class="display" cellspacing="0" width="100%">
+	<table id="example" class="table" cellspacing="0" width="100%">
 	     <thead>
 	         <tr>
 	             <th>userId</th>

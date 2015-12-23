@@ -83,12 +83,7 @@ public class UserController {
 		return rb;
 	}
 
-	@RequestMapping(value = "/cccc", method = RequestMethod.GET)
-	public ModelAndView ser(Model model,HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView("/user/ccc");
-		model.addAttribute("aa", "ababb");
-		return mv;
-	}
+
 	
 	
 	

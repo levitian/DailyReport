@@ -18,7 +18,7 @@ import com.mottledog.bo.User;
 import com.mottledog.model.EventModel;
 import com.mottledog.service.EventService;
 import com.mottledog.service.UserService;
-import com.mottledog.util.DataUtil;
+import com.mottledog.util.DateUtil;
 
 @Controller
 @RequestMapping(value = "/event")
@@ -52,8 +52,8 @@ public class EventController {
 			}else{
 				em.setTitle(u.getUsername());
 			}
-			em.setStart(DataUtil.DateToStr(e.getStart()));
-			em.setEnd(DataUtil.DateToStr(e.getEnd()));
+			em.setStart(DateUtil.DateToStr(e.getStart()));
+			em.setEnd(DateUtil.DateToStr(e.getEnd()));
 			ems.add(em);
 		}
 		
@@ -67,8 +67,8 @@ public class EventController {
 		Event event = new Event();
 		event.setUid(em.getUid());
 		//格式："2015-07-02 8:0:0"
-		event.setStart(DataUtil.StrToDate(em.getStart()));
-		event.setEnd(DataUtil.StrToDate(em.getEnd()));
+		event.setStart(DateUtil.StrToDate(em.getStart()));
+		event.setEnd(DateUtil.StrToDate(em.getEnd()));
 		int eventId = eventService.add(event);
 		em.setId(eventId);
 		return em;
@@ -94,8 +94,8 @@ public class EventController {
 			event.setId(em.getId());
 			event.setUid(em.getUid());
 			//格式："2015-07-02 8:0:0"
-			event.setStart(DataUtil.StrToDate(em.getStart()));
-			event.setEnd(DataUtil.StrToDate(em.getEnd()));
+			event.setStart(DateUtil.StrToDate(em.getStart()));
+			event.setEnd(DateUtil.StrToDate(em.getEnd()));
 			eventService.update(event);
 			return true;
 		}catch(Exception e){
